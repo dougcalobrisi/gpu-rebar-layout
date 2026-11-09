@@ -1,0 +1,11 @@
+#!/bin/sh
+# Installed as /etc/initramfs-tools/scripts/init-top/00-gpu-rebar-layout
+# Loads gpu_rebar_layout before udev coldplug, so no GPU driver is bound while it re-enumerates
+# the root ports above the GPUs. It does nothing unless gpu_rebar_layout.ids= is on
+# the kernel command line. See README.md
+PREREQ=""
+prereqs() { echo "$PREREQ"; }
+case "$1" in
+prereqs) prereqs; exit 0 ;;
+esac
+modprobe -q gpu_rebar_layout || true
